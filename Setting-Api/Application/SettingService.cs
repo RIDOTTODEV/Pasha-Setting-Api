@@ -42,7 +42,8 @@ public class SettingService(ApplicationDbContext context,IExternalService extern
         if (timeZone == 0) 
             return;
         var settings = await context.Settings.ToListAsync();
-        
+        if (settings.Count==0)
+            return;
         foreach (var setting in settings)
         {
             setting.TimeZone = timeZone;
