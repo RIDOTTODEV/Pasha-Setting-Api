@@ -1,0 +1,78 @@
+
+name: docker-release
+
+on:
+  push:
+    #branches:
+    #  - main
+    tags:
+      - 'v*'
+  #pull_request:
+  #  branches:
+  #    - main
+
+jobs:
+  ubuntu-latest:
+    name: ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 8.0.x
+          #          source-url: https://nuget.pkg.github.com/ridottodev/index.json
+          #        env:
+          #          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Docker meta_api
+        id: meta_api
+        uses: docker/metadata-action@v4
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/ridottodev/pasha-setting-api
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+          flavor: |
+            latest=true
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=repo_version::${GITHUB_REF/refs\/tags\/v/}
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore /property:Version=${{ steps.get_version.outputs.repo_version }} /property:AssemblyVersion=${{ steps.get_version.outputs.repo_version }} /property:FileVersion=${{ steps.get_version.outputs.repo_version }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Api
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Pos.Api/Dockerfile
+          platforms: linux/amd64 #,linux/arm64
+          push: true
+          tags: ${{ steps.meta_api.outputs.tags }}
+          labels: ${{ steps.meta_api.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
