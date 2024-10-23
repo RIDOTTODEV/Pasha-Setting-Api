@@ -1,0 +1,5 @@
+@Setting_Api_HostAddress = http://localhost:5250
+
+GET {{Setting_Api_HostAddress}}/get-settings
+Accept: application/json
+###
