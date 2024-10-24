@@ -70,4 +70,7 @@ app.MapPut("/update-gmt-offset", async (ISettingService settingService) =>
     return Results.Created($"/update-gmt-offset", "GMT Offset Updated");
 });
 
+await using var scope = app.Services.CreateAsyncScope();
+await using var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+await db.Database.MigrateAsync();
 app.Run();
