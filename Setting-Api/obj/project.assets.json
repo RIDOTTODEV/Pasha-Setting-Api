@@ -2602,25 +2602,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/cengizhankorkmaz/.nuget/packages/": {}
+    "/Users/onurmac/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/cengizhankorkmaz/Source/Backend/Setting-Api/Setting-Api/Setting-Api.csproj",
+      "projectUniqueName": "/Users/onurmac/Projects/GitHub/Cyprus-Ridotto/Pasha-Setting-Api/Setting-Api/Setting-Api.csproj",
       "projectName": "Setting-Api",
-      "projectPath": "/Users/cengizhankorkmaz/Source/Backend/Setting-Api/Setting-Api/Setting-Api.csproj",
-      "packagesPath": "/Users/cengizhankorkmaz/.nuget/packages/",
-      "outputPath": "/Users/cengizhankorkmaz/Source/Backend/Setting-Api/Setting-Api/obj/",
+      "projectPath": "/Users/onurmac/Projects/GitHub/Cyprus-Ridotto/Pasha-Setting-Api/Setting-Api/Setting-Api.csproj",
+      "packagesPath": "/Users/onurmac/.nuget/packages/",
+      "outputPath": "/Users/onurmac/Projects/GitHub/Cyprus-Ridotto/Pasha-Setting-Api/Setting-Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/cengizhankorkmaz/.nuget/NuGet/NuGet.Config"
+        "/Users/onurmac/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.pkg.github.com/ridottodev/index.json": {}
       },
       "frameworks": {
         "net8.0": {
@@ -2637,7 +2638,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -2681,6 +2683,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.osx-x64",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -2689,7 +2705,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
